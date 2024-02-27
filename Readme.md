@@ -24,7 +24,7 @@ node server.js
 
 ## open your web browser and visit
 
-localhost:3000/os/server-info
+localhost:3000/os/server-info <br> </br>
 localhost:3000/os/directory-list
 
 ## open the postman and copy localhost:3000/os/server-info and send it.

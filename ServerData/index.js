@@ -4,16 +4,26 @@ const os = require('os');
 const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser'); // Importing the body-parser middleware for parsing incoming request bodies
+const morgan = require('morgan'); //HTTP request logger middleware. used for the request, error, time and many more
 const {
   getIPAddress,
   getMemoryUsage,
   getStorageUsage,
   getCPUUsage,
 } = require('./logic');
+const { request } = require('http');
 
 // Create Express app and Define port for the server to listen on
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+morgan.token('method', (req, res) => {
+  return req.method;
+});
+
+app.use(morgan('dev')); // print morgan(':method :url :status :res[content-length] - :response-time ms')
+
+app.use(morgan(`:method :url`));
 
 //Body parsing middleware
 app.use(bodyParser.json());

@@ -14,6 +14,7 @@ npm init -y
 ## step-3 install the express module
 
 npm install express
+npm install morgan
 npm install body-parser
 
 ## step-4 create the file index.js and logic.js and server.js

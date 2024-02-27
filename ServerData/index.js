@@ -2,6 +2,7 @@
 const express = require('express');
 const os = require('os');
 const path = require('path');
+//const pathModule = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser'); // Importing the body-parser middleware for parsing incoming request bodies
 const morgan = require('morgan'); //HTTP request logger middleware. used for the request, error, time and many more
@@ -15,7 +16,7 @@ const { request } = require('http');
 
 // Create Express app and Define port for the server to listen on
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 morgan.token('method', (req, res) => {
   return req.method;
@@ -53,12 +54,12 @@ app.get('/os/directory-list', (req, res) => {
   const path = req.query.path || '/'; // Get path from query parameter or default to root directory
 
   // Use os module to normalize the directory path
-  directoryPath = pathModule.normalize(directoryPath);
+  /*directoryPath = pathModule.normalize(directoryPath);
 
   // Check if the directory exists
   if (!fs.existsSync(directoryPath)) {
     return res.status(404).json({ error: 'Directory not found' });
-  }
+  }*/
 
   // Read directory contents
   fs.readdir(path, (err, files) => {

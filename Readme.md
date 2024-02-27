@@ -25,11 +25,12 @@ node server.js
 
 ## open your web browser and visit
 
-localhost:3000/os/server-info <br> </br>
-localhost:3000/os/directory-list
+localhost:5000/os/server-info <br> </br>
+localhost:5000/os/directory-list
 
-## open the postman and copy localhost:3000/os/server-info and send it.
+## open the postman and copy localhost:5000/os/server-info and send it.
 
 # backend Application node-js-express-js
 
 ![](screenshots/1.png)
+![](screenshots/2.png)

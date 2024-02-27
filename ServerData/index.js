@@ -52,6 +52,14 @@ app.get('/os/server-info', (req, res) => {
 app.get('/os/directory-list', (req, res) => {
   const path = req.query.path || '/'; // Get path from query parameter or default to root directory
 
+  // Use os module to normalize the directory path
+  directoryPath = pathModule.normalize(directoryPath);
+
+  // Check if the directory exists
+  if (!fs.existsSync(directoryPath)) {
+    return res.status(404).json({ error: 'Directory not found' });
+  }
+
   // Read directory contents
   fs.readdir(path, (err, files) => {
     if (err) {

@@ -1,0 +1,7 @@
+version: '3'
+services: 
+  nodebackend:
+    build: .
+    image: node-backend-app
+    ports: 
+    - "5001:5000"

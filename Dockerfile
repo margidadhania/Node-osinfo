@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 RUN npm install express
 RUN npm install morgan
-RUN npm install body-parser
+#RUN npm install body-parser
 
 # Copy package.json and package-lock.json to the working directsnodeory
 COPY . .

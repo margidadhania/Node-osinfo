@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Route to get server information
 app.get('/os/server-info', (req, res) => {
   const serverInfo = {
-    server: {https://github.com/Margid2024/express-node-backend.git
+    server: {
       ip: getIPAddress(), // Get server IP address
       hostname: os.hostname(), // Get server hostname
     },

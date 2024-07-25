@@ -1,18 +1,15 @@
 // Import required modules
 const express = require('express');
 const os = require('os');
-const path = require('path');
-//const pathModule = require('path');
 const fs = require('fs');
-const bodyParser = require('body-parser'); // Importing the body-parser middleware for parsing incoming request bodies
-const morgan = require('morgan'); //HTTP request logger middleware. used for the request, error, time and many more
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const {
   getIPAddress,
   getMemoryUsage,
   getStorageUsage,
   getCPUUsage,
 } = require('./logic');
-const { request } = require('http');
 
 // Create Express app and Define port for the server to listen on
 const app = express();
@@ -22,54 +19,51 @@ morgan.token('method', (req, res) => {
   return req.method;
 });
 
-app.use(morgan('dev')); // print morgan(':method :url :status :res[content-length] - :response-time ms')
-
+app.use(morgan('dev'));
 app.use(morgan(`:method :url`));
 
-//Body parsing middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Route to get server information
 app.get('/os/server-info', (req, res) => {
-  // Construct server information object
   const serverInfo = {
-    server: {https://github.com/Margid2024/express-node-backend.git
-      ip: getIPAddress(), // Get server IP address
-      hostname: os.hostname(), // Get server hostname
+    server: {
+      ip: getIPAddress(),
+      hostname: os.hostname(),
     },
-    memory: getMemoryUsage(), // Get memory usage information
-    storage: getStorageUsage(), // Get storage usage information
+    memory: getMemoryUsage(),
+    storage: getStorageUsage(),
     cpu: {
-      used: getCPUUsage(), // Get CPU usage information
+      used: getCPUUsage(),
     },
   };
-
-  // Send server information as JSON response
   return res.json(serverInfo);
 });
 
 // Route to get list of files and directories inside a given path
 app.get('/os/directory-list', (req, res) => {
-  const path = req.query.path || '/'; // Get path from query parameter or default to root directory
-
-  // Use os module to normalize the directory path
-  /*directoryPath = pathModule.normalize(directoryPath);
+  const directoryPath = req.query.path || '/'; // Get path from query parameter or default to root directory
 
   // Check if the directory exists
-  if (!fs.existsSync(directoryPath)) {
-    return res.status(404).json({ error: 'Directory not found' });
-  }*/
-
-  // Read directory contents
-  fs.readdir(path, (err, files) => {
+  fs.stat(directoryPath, (err, stats) => {
     if (err) {
-      // Handle error if reading directory fails
-      res.status(500).json({ error: 'Error reading directory' });
-    } else {
-      // Send list of files as JSON response
-      return res.json({ files });
+      return res.status(404).json({ error: 'Directory not found' });
     }
+    if (!stats.isDirectory()) {
+      return res
+        .status(400)
+        .json({ error: 'Provided path is not a directory' });
+    }
+
+    // Read directory contents
+    fs.readdir(directoryPath, (err, files) => {
+      if (err) {
+        res.status(500).json({ error: 'Error reading directory' });
+      } else {
+        return res.json({ files });
+      }
+    });
   });
 });
 

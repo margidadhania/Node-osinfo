@@ -21,7 +21,7 @@ npm install body-parser
 
 ## step-5 launch your server
 
-node server.js
+node index.js
 
 ## open your web browser and visit
 

@@ -21,7 +21,6 @@ pipeline {
                     docker.withRegistry("${AWS_ACCOUNT_URL}", "ecr:${AWS_DEFAULT_REGION}:aws-creds") {
                         myImage.push("${IMAGE_TAG}")
                     }
-                    echo "${env.GIT_BRANCH}"
                 }
             }
         

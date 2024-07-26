@@ -27,13 +27,13 @@ pipeline {
         }
     }
 
-    stage('Deploy') {
-            steps {
-                sshagent(credentials: ['todo-key']) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no 'jenkins'@$INSTANCE_IP "sh /scripts/auto-deploy-nodeinfo.sh"
-                    '''
-                }
-            }
-        }
-    }
+    // stage('Deploy') {
+    //         steps {
+    //             sshagent(credentials: ['todo-key']) {
+    //                 sh '''
+    //                     ssh -o StrictHostKeyChecking=no 'jenkins'@$INSTANCE_IP "sh /scripts/auto-deploy-nodeinfo.sh"
+    //                 '''
+    //             }
+    //         }
+    //     }
+    // }

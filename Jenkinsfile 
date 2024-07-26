@@ -1,0 +1,66 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "nodeinfo"
+        IMAGE_TAG = "latest"
+        AWS_REGION = "ap-south-1"
+        AWS_DEFAULT_REGION = "ap-south-1"
+        AWS_ACCOUNT_URL = "https://891376964391.dkr.ecr.ap-south-1.amazonaws.com/nodeinfo"
+       // INSTANCE_IP = '15.207.132.12'
+        // SONARQUBE_SERVER = 'SonarQube'
+        // SLACK_CHANNEL = '#jenkin' // Change this to your Slack channel
+        // SLACK_CREDENTIAL_ID = 'jenkins-git-cicd3' // The ID of the Slack credential you created in Jenkins
+ 
+    }
+
+     stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/margidadhania/Node-osinfo.git'
+            }
+        }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building'
+                script {
+                    def myImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                    docker.withRegistry("${AWS_ACCOUNT_URL}", "ecr:${AWS_DEFAULT_REGION}:aws-creds") {
+                        myImage.push("${IMAGE_TAG}")
+                    }
+                    echo "${env.GIT_BRANCH}"
+                }
+            }
+        }
+
+    //     stage('SonarQube Analysis') {
+    //         steps {
+    //             echo 'Running SonarQube Analysis'
+    //             script {
+    //                 docker.image('sonarsource/sonar-scanner-cli:latest').inside {
+    //                     withSonarQubeEnv('SonarQube') {
+    //                         sh 'sonar-scanner'
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     stage('Deploy') {
+    //         steps {
+    //             sshagent(credentials: ['todo-key']) {
+    //                 sh '''
+    //                     ssh -o StrictHostKeyChecking=no 'jenkins'@$INSTANCE_IP "sh /apps/deploy-todo-app.sh"
+    //                 '''
+    //             }
+    //         }
+    //     }
+    // }
+
+    }
+
+}
+
+}

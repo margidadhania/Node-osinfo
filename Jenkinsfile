@@ -15,6 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building'
+                echo "${IMAGE_NAME}:${IMAGE_TAG}"
                 script {
                     def myImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                     docker.withRegistry("${AWS_ACCOUNT_URL}", "ecr:${AWS_DEFAULT_REGION}:aws-creds") {

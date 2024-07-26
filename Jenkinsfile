@@ -8,7 +8,6 @@ pipeline {
         AWS_DEFAULT_REGION = "ap-south-1"
         AWS_ACCOUNT_URL = "https://891376964391.dkr.ecr.ap-south-1.amazonaws.com"
         INSTANCE_IP = '15.207.132.12'
-       
     }
 
     stages {
@@ -23,17 +22,6 @@ pipeline {
                     }
                 }
             }
-        
         }
     }
-
-    // stage('Deploy') {
-    //         steps {
-    //             sshagent(credentials: ['todo-key']) {
-    //                 sh '''
-    //                     ssh -o StrictHostKeyChecking=no 'jenkins'@$INSTANCE_IP "sh /scripts/auto-deploy-nodeinfo.sh"
-    //                 '''
-    //             }
-    //         }
-    //     }
- }
+}

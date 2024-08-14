@@ -29,8 +29,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/os/server-info', (req, res) => {
   const serverInfo = {
     server: {
-      ip: getIPAddress(),
-      hostname: os.hostname(),
+      ip: getIPAddress(), // Get server IP address
+      hostname: os.hostname(), // Get server hostname
     },
     memory: getMemoryUsage(),
     storage: getStorageUsage(),

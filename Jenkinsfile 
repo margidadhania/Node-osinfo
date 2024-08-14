@@ -7,7 +7,7 @@ pipeline {
         AWS_REGION = "ap-south-1"
         AWS_DEFAULT_REGION = "ap-south-1"
         AWS_ACCOUNT_URL = "https://891376964391.dkr.ecr.ap-south-1.amazonaws.com/nodeinfo"
-       // INSTANCE_IP = '15.207.132.12'
+        INSTANCE_IP = '15.207.132.12'
         // SONARQUBE_SERVER = 'SonarQube'
         // SLACK_CHANNEL = '#jenkin' // Change this to your Slack channel
         // SLACK_CREDENTIAL_ID = 'jenkins-git-cicd3' // The ID of the Slack credential you created in Jenkins
@@ -34,7 +34,7 @@ pipeline {
                 }
             }
         }
-
+    }
     //     stage('SonarQube Analysis') {
     //         steps {
     //             echo 'Running SonarQube Analysis'
@@ -60,7 +60,5 @@ pipeline {
     // }
 
     }
-
-}
 
 }
